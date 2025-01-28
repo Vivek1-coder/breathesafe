@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
+import { DataModel } from "../upload/route";
 
-const GasSchema = new mongoose.Schema({
-  ppm: Number,
-  timestamp: { type: Date, default: Date.now },
-});
 
-const Gas = mongoose.models.Gas || mongoose.model("Gas", GasSchema);
 
 async function connectToDatabase() {
   if (mongoose.connection.readyState === 0) {
@@ -16,12 +12,21 @@ async function connectToDatabase() {
   }
 }
 
-export  async function GET(req, res) {
-  if (req.method === "GET") {
-    await connectToDatabase();
-    const gasData = await Gas.find().sort({ timestamp: -1 }).limit(10);
-    return res.status(200).json(gasData);
-  }
+export  async function GET(req,res) {
+ try {
+   
+       await connectToDatabase();
+       const gasData = await DataModel.find().sort({ timestamp: -1 }).limit(10);
 
-  res.status(405).json({ error: "Method not allowed" });
+       return new Response(JSON.stringify({gasData}),{
+        status:200,
+       })
+       
+    
+ } catch (error) {
+    console.error('Error saving data:', error);
+    return new Response(JSON.stringify({ message: 'Server error' }), {
+      status: 500,
+    });
+ }
 }

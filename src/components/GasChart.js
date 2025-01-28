@@ -1,70 +1,43 @@
-'use client'
 import React from "react";
 import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, TimeScale, PointElement } from "chart.js";
+import 'chartjs-adapter-date-fns'; // Import the adapter
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+// Register the necessary chart elements
+ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, TimeScale);
 
-export default function GasChart({ data }) {
+const GasChart = ({ data }) => {
   const chartData = {
-    labels: data.map((entry) =>
-      new Date(entry.timestamp).toLocaleTimeString()
-    ),
+    labels: data.map((dataPoint) => new Date(dataPoint.timestamp)), // Convert timestamps to Date objects
     datasets: [
       {
-        label: "Gas Concentration (PPM)",
-        data: data.map((entry) => entry.ppm),
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        tension: 0.4, // Smooth curves
+        label: 'Gas PPM',
+        data: data.map((dataPoint) => dataPoint.ppm), // Map ppm values
+        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        fill: true,
       },
     ],
   };
 
   const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "MQ135 Gas Concentration Over Time",
-      },
-    },
     scales: {
       x: {
-        title: {
-          display: true,
-          text: "Timestamp",
+        type: 'time',
+        time: {
+          unit: 'minute', // You can change the unit as per your requirement (e.g., 'hour', 'day')
+          tooltipFormat: 'll HH:mm',
         },
       },
       y: {
-        title: {
-          display: true,
-          text: "PPM",
+        ticks: {
+          beginAtZero: true,
         },
       },
     },
   };
 
   return <Line data={chartData} options={options} />;
-}
+};
+
+export default GasChart;
