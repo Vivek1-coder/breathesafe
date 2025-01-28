@@ -15,13 +15,32 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container">
-      <h1>MQ135 Gas Sensor Data</h1>
+    <div className="relative w-full h-full">
+      <h1 className="w- text-center m-5 font-extrabold text-5xl ">Welcome to Breathe Safe</h1>
+    <div className="flex flex-col justify-center items-center ">
+      <h1 className="text-3xl text-center p-5">AQI of your home : </h1>
       {gasData.length > 0 ? (
         <GasChart data={gasData} />
       ) : (
-        <p>Loading data...</p>
+        <p c>Loading data...</p>
       )}
+    </div>
+    
+    <div className="w-full flex justify-between p-5">
+    <div className="flex flex-col w-1/3 h-96 bg-blue-600 bg-transparent bg-opacity-30 shadow-md shadow-violet-400 m-5 rounded-xl">
+      <h1 className="text-xl text-center m-3">Precautions : </h1>
+      <div>
+        
+      </div>
+    </div>
+    <div className="flex flex-col w-1/3 h-96 bg-green-500 bg-transparent bg-opacity-50  shadow-md shadow-violet-400 m-5 rounded-xl">
+    <h1 className="text-xl text-center m-3">What to do for a better future : </h1>
+      <div>
+
+      </div>
+    </div>
+    </div>
+   
     </div>
   );
 }
