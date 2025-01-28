@@ -16,7 +16,7 @@ async function connectToDatabase() {
   }
 }
 
-export default async function handler(req, res) {
+export  async function GET(req, res) {
   if (req.method === "GET") {
     await connectToDatabase();
     const gasData = await Gas.find().sort({ timestamp: -1 }).limit(10);
