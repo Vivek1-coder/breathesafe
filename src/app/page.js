@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import GasChart from "../components/GasChart";
 import CircularAQI from "../components/CircularChart.jsx";
-import {leaf} from "../../public/leaf.svg"
+
 
 export default function Home() {
   const [gasData, setGasData] = useState([]);
