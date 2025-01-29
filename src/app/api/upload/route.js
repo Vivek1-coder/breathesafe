@@ -25,7 +25,7 @@ export async function POST(req) {
 
     const body = await req.json(); // Parse JSON body
     console.log('Received data:', body);
-
+    
     const newData = new DataModel({ ppm: body.ppm });
     await newData.save();
 
