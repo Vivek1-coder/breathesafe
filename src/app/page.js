@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="relative w-full h-full">
       <h1 className="w- text-center m-5 font-extrabold text-5xl">Welcome to Breathe Safe</h1>
-      <div className="flex max-md:flex-wrap justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <h1 className="text-3xl text-center p-5">AQI of your home : </h1>
         {gasData.length > 0 ? (
           <GasChart data={gasData} />
@@ -26,7 +26,7 @@ export default function Home() {
         )}
       </div>
 
-      <div className="w-full flex flex-col justify-between p-5">
+      <div className="w-full flex max-md:flex-wrap justify-between p-5">
         <div className="flex flex-col w-full md:w-1/3 h-96 bg-blue-600 bg-transparent bg-opacity-30 shadow-md shadow-violet-400 md:m-5 rounded-xl">
           <h1 className="text-xl text-center m-3">Precautions : </h1>
           <div></div>
