@@ -27,11 +27,11 @@ export default function Home() {
       </div>
 
       <div className="w-full flex flex-col justify-between p-5">
-        <div className="flex flex-col w-full md:w-1/3 h-96 bg-blue-600 bg-transparent bg-opacity-30 shadow-md shadow-violet-400 m-5 rounded-xl">
+        <div className="flex flex-col w-full md:w-1/3 h-96 bg-blue-600 bg-transparent bg-opacity-30 shadow-md shadow-violet-400 md:m-5 rounded-xl">
           <h1 className="text-xl text-center m-3">Precautions : </h1>
           <div></div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 h-96 bg-green-500 bg-transparent bg-opacity-50 shadow-md shadow-violet-400 m-5 rounded-xl">
+        <div className="flex flex-col w-full md:w-1/3 h-96 bg-green-500 bg-transparent bg-opacity-50 shadow-md shadow-violet-400 md:m-5 rounded-xl">
           <h1 className="text-xl text-center m-3">What to do for a better future : </h1>
           <div></div>
         </div>
