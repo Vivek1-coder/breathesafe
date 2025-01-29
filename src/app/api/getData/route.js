@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DataModel } from "../upload/route";
+import { DataModel } from "@/models/Data.model";
 
 
 
