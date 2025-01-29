@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="relative w-full h-full">
       <h1 className="w- text-center m-5 font-extrabold text-5xl">Welcome to Breathe Safe</h1>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-wrap justify-center items-center">
         <h1 className="text-3xl text-center p-5">AQI of your home : </h1>
         {gasData.length > 0 ? (
           <GasChart data={gasData} />
