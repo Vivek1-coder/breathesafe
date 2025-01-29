@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DataModel } from '@/models/Data.model.js';
+import { DataModel } from '../../../models/Data.model.js';
 
 // MongoDB connection
 const connectToDatabase = async () => {
