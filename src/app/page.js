@@ -146,11 +146,13 @@ export default function Home() {
       </table>}
           </div>
         </div>
+        
         <div className="flex flex-col w-full md:w-2/5 px-1 pb-5 pt-2 bg-transparent bg-opacity-50 shadow-lg shadow-green-400 md:m-5 mb-10  rounded-xl">
           <h1 className="text-xl text-center  my-5">What to do for a better future : </h1>
           <div className="flex justify-center">
             {loading && <button onClick={fetchAQIResponse} className="w-1/2 h-11 bg-green-500 rounded-lg bg-opacity-85  hover:scale-105">{loadert?"Generating...":"Generate using AI"}</button>}
             {!loading && <table className="w-full border-collapse border border-gray-400">
+
         <tbody>
           {tableData.map((row, index) => (
             <tr key={index} className={`border border-gray-400 ${colors[index % colors.length]}`}>

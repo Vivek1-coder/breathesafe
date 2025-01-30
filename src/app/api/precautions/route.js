@@ -1,6 +1,7 @@
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
 'use server'
 import { GoogleGenerativeAI } from "@google/generative-ai";
+
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
