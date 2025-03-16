@@ -35,15 +35,15 @@ const CircularAQI = ({ aqi}) => {
         <p className="text-sm md:text-lg">Air Quality Index</p>
         <p className="text-xl md:text-3xl font-bold">{aqi || "N/A"}</p>
         <p className="text-lg md:text-xl">
-          {aqi <= 50
+          {aqi <= 600
             ? "Good"
-            : aqi <= 100
+            : aqi <= 1000
             ? "Moderate"
-            : aqi <= 150
+            : aqi <= 2000
             ? "Unhealthy for Sensitive"
-            : aqi <= 200
+            : aqi <= 3000
             ? "Unhealthy"
-            : aqi <= 300
+            : aqi <= 5000
             ? "Very Poor"
             : "Hazardous"}
         </p>
