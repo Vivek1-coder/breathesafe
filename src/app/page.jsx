@@ -85,7 +85,7 @@ const LocationPage = () => {
           placeholder="Enter location name"
           value={locationName}
           onChange={(e) => setLocationName(e.target.value)}
-          className="border w-96 p-2 rounded"
+          className="border w-96 p-2 rounded text-black"
         />
         <button
           onClick={handleAddLocation}
