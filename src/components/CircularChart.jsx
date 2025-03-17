@@ -2,18 +2,18 @@ import React from "react";
 
 const CircularAQI = ({ aqi}) => {
   const getColor = (value) => {
-    if (value <= 50) return "#00e400"; // Good (Green)
-    if (value <= 100) return "#ffff00"; // Moderate (Yellow)
-    if (value <= 150) return "#ff7e00"; // Unhealthy for Sensitive Groups (Orange)
-    if (value <= 200) return "#ff0000"; // Unhealthy (Red)
-    if (value <= 300) return "#8f3f97"; // Very Unhealthy (Purple)
+    if (value <= 600) return "#00e400"; // Good (Green)
+    if (value <= 1000) return "#ffff00"; // Moderate (Yellow)
+    if (value <= 2000) return "#ff7e00"; // Unhealthy for Sensitive Groups (Orange)
+    if (value <= 3000) return "#ff0000"; // Unhealthy (Red)
+    if (value <= 5000) return "#8f3f97"; // Very Unhealthy (Purple)
     return "#7e0023"; // Hazardous (Maroon)
   };
   console.log(aqi)
   const strokeColor = getColor(aqi);
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
-  const progress = Math.max(0, Math.min(aqi, 400)) / 400 * circumference;
+  const progress = Math.max(0, Math.min(aqi, 8000)) / 8000 * circumference;
   
   return (
     <div className="relative w-full h-48 md:h-80 flex items-center justify-center">

@@ -76,8 +76,8 @@ const LocationPage = () => {
 
   return (
     <div className="container p-4">
+      <h1 className="w-full text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Welcome to Breathe Sa🌿e</h1>
       <h2 className="text-xl font-bold mb-4">Manage Locations</h2>
-
       {/* Add Location Section */}
       <div className="flex gap-2 mb-4">
         <input
@@ -85,7 +85,7 @@ const LocationPage = () => {
           placeholder="Enter location name"
           value={locationName}
           onChange={(e) => setLocationName(e.target.value)}
-          className="border p-2 rounded"
+          className="border w-96 p-2 rounded"
         />
         <button
           onClick={handleAddLocation}

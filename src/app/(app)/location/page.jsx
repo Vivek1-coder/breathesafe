@@ -76,6 +76,7 @@ const LocationPage = () => {
 
   return (
     <div className="container p-4">
+      
       <h2 className="text-xl font-bold mb-4">Manage Locations</h2>
 
       {/* Add Location Section */}

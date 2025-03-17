@@ -105,9 +105,9 @@ const DateDetailPage = () => {
 
   return (
     <div className="relative w-full h-full">
-      <h1 className="w- text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Welcome to Breathe Sa🌿e</h1>
+      <h1 className="w- text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1>
       
-      <h1 className=" text-lg md:text-3xl text-center p-5">AQI of your home 🏡 </h1>
+      <h1 className=" text-lg md:text-3xl text-center p-5">AQI of {loc} on {date}</h1>
         <div className="flex flex-wrap w-full px-6 mt-4 md:justify-between gap-3">
         <div className="flex justify-center w-full md:w-1/3 bg-slate-500 bg-opacity-20 rounded-lg items-center ">
           <CircularAQI aqi={aqiData[0]?.ppm || 0}/>

@@ -30,14 +30,15 @@ const DateCalendarPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Last 30 Days for {loc}</h1>
+    <div className="container w-full p-6">
+      <h1 className="w-full text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1>
+      <h2 className="text-2xl font-bold mb-4">Last 30 Days for {loc}</h2>
       <div className="grid grid-cols-7 gap-4">
         {dates.map(({ formattedDate, dayName }) => (
           <div
             key={formattedDate}
             onClick={() => handleDateClick(formattedDate)}
-            className="cursor-pointer p-4 border rounded shadow hover:bg-gray-200 text-center"
+            className="cursor-pointer p-4 border rounded shadow hover:bg-gray-700 text-center"
           >
             <p className="font-semibold">{dayName}</p>
             <p>{formattedDate}</p>
