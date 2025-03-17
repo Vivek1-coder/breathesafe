@@ -19,3 +19,42 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+.add-location {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+input {
+  padding: 8px;
+  font-size: 16px;
+}
+button {
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.message {
+  color: red;
+}
+.location-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.location-card {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 150px;
+  color : white
+ 
+}

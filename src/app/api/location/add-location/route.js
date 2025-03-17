@@ -8,8 +8,10 @@ export async function POST(req, res) {
 
   try {
     const { name, latitude, longitude } =await req.json();
-
-    if (!name || !latitude || !longitude) {
+    if ( !name) {
+      return Response.json({ message: "Name is required" },{status:404});
+    }
+    if ( !latitude || !longitude) {
       return Response.json({ message: "All fields are required." },{status:404});
     }
 

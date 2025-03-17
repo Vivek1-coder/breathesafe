@@ -1,12 +1,13 @@
-'use client'
+'use client';
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import GasChart from "../../../../../../components/GasChart";
+import CircularAQI from "../../../../../../components/CircularChart.jsx";
 
-import { useEffect, useState } from "react";
-import GasChart from "../components/GasChart";
-import CircularAQI from "../components/CircularChart.jsx";
 
-
-export default function Home() {
-  const [gasData, setGasData] = useState([]);
+const DateDetailPage = () => {
+  const { date, loc } = useParams();
+  const [aqiData, setAqiData] = useState([]);
   const [loadert, setloadert] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadert2, setloadert2] = useState(false);
@@ -17,9 +18,9 @@ export default function Home() {
   const fetchAQIResponse = async () => {
     setloadert(true);
     try {
-      // Extract ppm values from gasData
-      const ppmArray = gasData.map(data => data.ppm);
-
+      // Extract ppm values from aqiData
+      const ppmArray = aqiData.map(data => data.ppm);
+      console.log(aqiData)
       const res = await fetch("/api/suggest", {
         method: "POST",
         headers: {
@@ -41,8 +42,8 @@ export default function Home() {
   const fetchAQIPrecautions = async () => {
     setloadert2(true);
     try {
-      // Extract ppm values from gasData
-      const ppmArray = gasData.map(data => data.ppm);
+      // Extract ppm values from aqiData
+      const ppmArray = aqiData.map(data => data.ppm);
 
       const res = await fetch("/api/precautions", {
         method: "POST",
@@ -88,16 +89,19 @@ export default function Home() {
   const colors = ["bg-orange-600","bg-blue-600",  "bg-gray-600","bg-green-600"];
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("/api/getData");
-      const data = await response.json();
-      setGasData(data.gasData); // Access gasData from the response
-      
-    }
+
+    if (!date || !loc) return;
+    // Simulating API call (Replace with actual fetch request)
     
-    fetchData();
-  }, []);
-  console.log(input)
+     async function  fetchData() {
+      const response = await fetch(`/api/getData?loc=${loc}&date=${date}`);
+      const data = await response.json();
+      setAqiData(data.gasdata);
+      
+     }
+     fetchData();
+    
+  }, [date, loc]);
 
   return (
     <div className="relative w-full h-full">
@@ -106,13 +110,13 @@ export default function Home() {
       <h1 className=" text-lg md:text-3xl text-center p-5">AQI of your home 🏡 </h1>
         <div className="flex flex-wrap w-full px-6 mt-4 md:justify-between gap-3">
         <div className="flex justify-center w-full md:w-1/3 bg-slate-500 bg-opacity-20 rounded-lg items-center ">
-          <CircularAQI aqi={gasData[0]?.ppm || 0}/>
+          <CircularAQI aqi={aqiData[0]?.ppm || 0}/>
         </div>
         
         
         <div className="w-full md:w-3/5 md:h-1/2 bg-slate-500 bg-opacity-20 md:p-4 rounded-lg">
-        {gasData.length > 0 ? (
-          <GasChart data={gasData} />
+        {aqiData.length > 0 ? (
+          <GasChart data={aqiData} />
         ) : (
           <p>Loading data...</p>
         )}
@@ -175,4 +179,13 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default DateDetailPage;
+
+
+
+
+
+  
+

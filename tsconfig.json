@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/api/suggest/route.js", "src/app/api/precautions/route.js"  ],
+, "src/app/api/suggest/route.js", "src/app/api/precautions/route.js", "src/app/api/location/get-all-locations/route.js"  ],
   "exclude": [
     "node_modules"
   ]
