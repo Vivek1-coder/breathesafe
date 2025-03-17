@@ -102,11 +102,11 @@ const LocationPage = () => {
       {fetching ? (
         <p>Loading locations...</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full flex justify-center gap-4 flex-wrap">
           {locations.length > 0 ? (
             locations.map((loc) => (
                 <Link key={loc._id} href={`/location/${loc.name}`}>
-                    <div className="p-4 border rounded shadow">
+                    <div className="p-4 border rounded shadow hover:bg-gray-600">
                         <h3 className="text-lg font-semibold">{loc.name || "Unnamed Location"}</h3>
                         <p>Latitude: {loc.coordinates?.coordinates[1]}</p>
                         <p>Longitude: {loc.coordinates?.coordinates[0]}</p>
