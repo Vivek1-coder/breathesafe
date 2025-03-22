@@ -4,7 +4,11 @@ import { DataModel } from "../../../models/Data.model";
 
 export async function POST(req) {
   try {
+    console.log("🛠️ API HIT: Received a request!");
+
     await connectDB();
+    console.log("✅ Connected to MongoDB");
+
 
     const body = await req.json();
     console.log("Received data:", body);
