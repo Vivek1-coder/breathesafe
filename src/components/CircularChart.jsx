@@ -32,7 +32,7 @@ const CircularAQI = ({ aqi}) => {
         />
       </svg>
       <div className="absolute text-center text-white">
-        <p className="text-sm md:text-lg">Air Quality Index</p>
+        <p className="text-sm md:text-lg">Air Quality Index(in ppm)</p>
         <p className="text-xl md:text-3xl font-bold">{aqi || "N/A"}</p>
         <p className="text-lg md:text-xl">
           {aqi <= 600
