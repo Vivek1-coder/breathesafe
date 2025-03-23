@@ -17,7 +17,7 @@ const isWithin1km = (loc1, loc2) => {
       Math.sin(dLon / 2);
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c <= 1; // Returns true if distance ≤ 1km
+  return R * c <= 5; // Returns true if distance ≤ 5km
 };
 
 export async function GET(req, res) {
@@ -52,7 +52,7 @@ export async function GET(req, res) {
       }
     }
 
-    return Response.json({ message: "No location found" },{status:404});
+    return Response.json({ message: "No location found" },{status:403});
   } catch (error) {
     console.error("Error fetching location:", error);
     return Response.json({ message: "Internal server error." },{status:500});
