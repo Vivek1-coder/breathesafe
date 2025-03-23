@@ -29,12 +29,12 @@ const chartAreaBackgroundPlugin = {
     
     // Define AQI level colors with reduced opacity and labels
     const aqiLevels = [
-      { limit: 600, color: "rgba(0, 228, 0, 0.5)", label: isSmallScreen? "" : "Good" },
-      { limit: 1000, color: "rgba(255, 255, 0, 0.5)", label: isSmallScreen? "" :"Moderate" },
-      { limit: 2000, color: "rgba(255, 126, 0, 0.5)", label: isSmallScreen? "" :"Unhealthy for Sensitive Groups" },
-      { limit: 3000, color: "rgba(255, 0, 0, 0.5)", label: isSmallScreen? "" :"Unhealthy" },
-      { limit: 5000, color: "rgba(143, 63, 151, 0.5)", label: isSmallScreen? "" :"Very Unhealthy" },
-      { limit: 10000, color: "rgba(126, 0, 35, 0.5)", label: isSmallScreen? "" :"Hazardous" },
+      { limit: 50, color: "rgba(0, 228, 0, 0.5)", label: isSmallScreen? "" : "Good" },
+      { limit: 100, color: "rgba(255, 255, 0, 0.5)", label: isSmallScreen? "" :"Moderate" },
+      { limit: 150, color: "rgba(255, 126, 0, 0.5)", label: isSmallScreen? "" :"Unhealthy for Sensitive Groups" },
+      { limit: 200, color: "rgba(255, 0, 0, 0.5)", label: isSmallScreen? "" :"Unhealthy" },
+      { limit: 300, color: "rgba(143, 63, 151, 0.5)", label: isSmallScreen? "" :"Very Unhealthy" },
+      { limit: 500, color: "rgba(126, 0, 35, 0.5)", label: isSmallScreen? "" :"Hazardous" },
     ];
 
     let prevPosition = bottom;
@@ -81,7 +81,7 @@ const chartData = {
       },
       y: {
         min: 0,
-        max: 10000,
+        max: 500,
         ticks: {
           stepSize: 50,
         },
