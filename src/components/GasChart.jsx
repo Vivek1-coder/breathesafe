@@ -81,7 +81,7 @@ const chartData = {
       },
       y: {
         min: 0,
-        max: 15000,
+        max: 10000,
         ticks: {
           stepSize: 50,
         },
