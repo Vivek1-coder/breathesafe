@@ -97,7 +97,7 @@ const LocationPage = () => {
         </button>
       </div>
 
-      {message && <p className="text-red-500">{message}</p>}
+      {message && <p className="text-green-500">{message}</p>}
 
       {/* Display Locations */}
       {fetching ? (
