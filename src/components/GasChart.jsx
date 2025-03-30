@@ -1,114 +1,103 @@
-'use client'
-import React, { useState,useEffect } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, TimeScale, PointElement } from "chart.js";
-import 'chartjs-adapter-date-fns';
+import "chart.js/auto";
 
-ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, TimeScale);
-const GasChart = ({ data }) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+// const gasData = [
+//   { timestamp: "2025-03-28T10:00:00", pm1_0: 20, pm2_5: 55, pm10: 120 },
+//   { timestamp: "2025-03-28T10:05:00", pm1_0: 40, pm2_5: 75, pm10: 180 },
+//   { timestamp: "2025-03-28T10:10:00", pm1_0: 60, pm2_5: 110, pm10: 250 },
+// ];
 
-  useEffect(() => {
-    console.log(data)
-    if (typeof window !== "undefined") {
-      setIsSmallScreen(window.innerWidth < 768);
-      
-      const handleResize = () => {
-        setIsSmallScreen(window.innerWidth < 768);
-      };
-      
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }
-  }, []);
-  
-const chartAreaBackgroundPlugin = {
-  id: "chartAreaBackground",
-  beforeDraw: (chart) => {
-    const { ctx, chartArea: { top, bottom, left, right }, scales: { y } } = chart;
-    
-    // Define AQI level colors with reduced opacity and labels
-    const aqiLevels = [
-      { limit: 50, color: "rgba(0, 228, 0, 0.5)", label: isSmallScreen? "" : "Good" },
-      { limit: 100, color: "rgba(255, 255, 0, 0.5)", label: isSmallScreen? "" :"Moderate" },
-      { limit: 150, color: "rgba(255, 126, 0, 0.5)", label: isSmallScreen? "" :"Unhealthy for Sensitive Groups" },
-      { limit: 200, color: "rgba(255, 0, 0, 0.5)", label: isSmallScreen? "" :"Unhealthy" },
-      { limit: 300, color: "rgba(143, 63, 151, 0.5)", label: isSmallScreen? "" :"Very Unhealthy" },
-      { limit: 500, color: "rgba(126, 0, 35, 0.5)", label: isSmallScreen? "" :"Hazardous" },
-    ];
+const PollutionChart = ({gasData}) => {
+  console.log("gas",gasData)
+  if(!gasData){
+    gasData=[]
+  }
+const getSafetyLabel = (value, type) => {
+  const thresholds = {
+    pm1_0: [
+      { limit: 30, label: "Good", color: "green" },
+      { limit: 60, label: "Moderate", color: "yellow" },
+      { limit: 90, label: "Unhealthy", color: "orange" },
+      { limit: Infinity, label: "Hazardous", color: "red" },
+    ],
+    pm2_5: [
+      { limit: 50, label: "Good", color: "green" },
+      { limit: 100, label: "Moderate", color: "yellow" },
+      { limit: 150, label: "Unhealthy", color: "orange" },
+      { limit: Infinity, label: "Hazardous", color: "red" },
+    ],
+    pm10: [
+      { limit: 100, label: "Good", color: "green" },
+      { limit: 200, label: "Moderate", color: "yellow" },
+      { limit: 300, label: "Unhealthy", color: "orange" },
+      { limit: Infinity, label: "Hazardous", color: "red" },
+    ],
+  };
 
-    let prevPosition = bottom;
-    aqiLevels.forEach(({ limit, color, label }) => {
-      const position = y.getPixelForValue(limit);
-      ctx.fillStyle = color;
-      ctx.fillRect(left, position, right - left, prevPosition - position);
-      ctx.fillStyle = "white";
-      ctx.font = "12px Arial";
-      ctx.textAlign = "right";
-      ctx.fillText(label, right - 5, position + 9);
-      prevPosition = position;
-    });
-  },
+  const safety = thresholds[type].find(({ limit }) => value <= limit);
+  return safety ? safety.label : "Unknown";
 };
 
-
-const gasData = data || []; // ✅ Safe fallback
-
 const chartData = {
-  labels: gasData.map((dataPoint) => new Date(dataPoint.timestamp)),
-  
+  labels: gasData.map((data) => new Date(data.timestamp).toLocaleTimeString()),
   datasets: [
     {
-      label: "AQI",
-      data: gasData.map((dataPoint) => dataPoint.ppm),
-      borderColor: "rgba(75,192,192,1)",
-      backgroundColor: "rgba(75,192,192,0.2)",
-      fill: true,
-      pointHoverRadius: 6,
+      label: "PM1.0",
+      data: gasData.map((data) => data.pm1_0),
+      borderColor: "blue",
+      backgroundColor: "rgba(0, 0, 255, 0.2)",
+    },
+    {
+      label: "PM2.5",
+      data: gasData.map((data) => data.pm2_5),
+      borderColor: "red",
+      backgroundColor: "rgba(255, 0, 0, 0.2)",
+    },
+    {
+      label: "PM10",
+      data: gasData.map((data) => data.pm10),
+      borderColor: "green",
+      backgroundColor: "rgba(0, 255, 0, 0.2)",
     },
   ],
 };
 
+const options = {
+  responsive: true,
+  scales: {
+    x: {
+      type: "category",
+    },
+    y: {
+      min: 0,
+      max: 500,
+      ticks: { stepSize: 50 },
+    },
+  },
+  plugins: {
+    legend: { display: true },
+    tooltip: {
+      callbacks: {
+        label: function (context) {
+          const dataPoint = gasData[context.dataIndex]; // Get the full data row
+          if (!dataPoint) return `${context.dataset.label}: ${context.raw}`;
 
-  const options = {
-    scales: {
-      x: {
-        type: "time",
-        time: {
-          unit: "minute",
-          tooltipFormat: "yyyy-MM-dd HH:mm",
-        },
-      },
-      y: {
-        min: 0,
-        max: 500,
-        ticks: {
-          stepSize: 50,
+          const pollutantKey = context.dataset.label.toLowerCase().replace(".", "_"); // Convert dataset label
+          const pollutantValue = dataPoint[pollutantKey];
+
+          if (pollutantValue === undefined) return `${context.dataset.label}: ${context.raw}`;
+
+          const safetyLabel = getSafetyLabel(pollutantValue, pollutantKey);
+          return `${context.dataset.label}: ${context.raw} (${safetyLabel})`;
         },
       },
     },
-    plugins: {
-      legend: { display: true },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            const yValue = context.raw;
-            return `AQI: ${yValue}`;
-          },
-        },
-      },
-    },
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return <div  className="md:h-full "><Line data={chartData} options={options} plugins={[chartAreaBackgroundPlugin]}/></div>
+  },
 };
 
-export default GasChart;
+
+  return <Line data={chartData} options={options} />;
+};
+
+export default PollutionChart;

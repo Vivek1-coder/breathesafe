@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import GasChart from "../../../../../../components/GasChart";
 import CircularAQI from "../../../../../../components/CircularChart.jsx";
+import PollutionChart from "../../../../../../components/GasChart";
 
 
 const DateDetailPage = () => {
@@ -93,15 +94,25 @@ const DateDetailPage = () => {
     if (!date || !loc) return;
     // Simulating API call (Replace with actual fetch request)
     
-     async function  fetchData() {
+    const fetchData = async () => {
       const response = await fetch(`/api/getData?loc=${loc}&date=${date}`);
       const data = await response.json();
-      setAqiData(data.gasdata);
+    
+      console.log("Fetched data:", data);
+      console.log("Fetched gasdata:", data.gasdata);
       
-     }
+      if (Array.isArray(data.gasdata) && data.gasdata.length > 0) {
+        setAqiData(data.gasdata);
+      } else {
+        console.warn("No valid gasdata received.");
+      }
+    };
      fetchData();
+     
     
   }, [date, loc]);
+
+  
 
   return (
     <div className="relative w-full h-full">
@@ -110,13 +121,20 @@ const DateDetailPage = () => {
       <h1 className=" text-lg md:text-3xl text-center p-5">AQI of {loc} on {date}</h1>
         <div className="flex flex-wrap w-full px-6 mt-4 md:justify-between gap-3">
         <div className="flex justify-center w-full md:w-1/3 bg-slate-500 bg-opacity-20 rounded-lg items-center ">
-          <CircularAQI aqi={aqiData[0]?.ppm || 0}/>
+        {console.log("AqiData",aqiData[0]?.co2)}
+        {aqiData.length > 0  ? (
+          <CircularAQI data={aqiData} />
+        ) : (
+          <p>Loading data...</p>
+        )}
+     
         </div>
         
         
         <div className="w-full md:w-3/5 md:h-1/2 bg-slate-500 bg-opacity-20 md:p-4 rounded-lg">
-        {aqiData.length > 0 ? (
-          <GasChart data={aqiData} />
+        {console.log("aqiData",aqiData)}
+        {aqiData.length > 0  ? (
+          <PollutionChart gasData={aqiData} />
         ) : (
           <p>Loading data...</p>
         )}

@@ -6,9 +6,9 @@ export async function OPTIONS() {
   return new Response(null, {
     status: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",  // Allow all origins
-      "Access-Control-Allow-Methods": "POST, OPTIONS",  // Allowed methods
-      "Access-Control-Allow-Headers": "Content-Type",  // Allowed headers
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
     },
   });
 }
@@ -31,33 +31,45 @@ export async function POST(req) {
     const body = await req.json();
     console.log("Received data:", body);
 
-    if (!body.ppm || !body.latitude || !body.longitude) {
-      return new Response(JSON.stringify({ message: "ppm, latitude, and longitude are required." }), {
+    // Validate required fields
+    if (
+      body.co2 === undefined || 
+      body.pm1_0 === undefined || 
+      body.pm2_5 === undefined || 
+      body.pm10 === undefined || 
+      body.latitude === undefined || 
+      body.longitude === undefined
+    ) {
+      return new Response(JSON.stringify({ message: "All sensor values (co2, pm1_0, pm2_5, pm10, temperature, humidity), latitude, and longitude are required." }), {
         status: 400,
         headers,
       });
     }
 
-    // Fetch location name from get-location route
+    // Fetch location name from get-location API
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/location/get-location?latitude=${body.latitude}&longitude=${body.longitude}`
     );
     const locationData = await response.json();
 
+    // Create new data entry
     const newData = new DataModel({
-      ppm: body.ppm,
+      co2: body.co2,
+      pm1_0: body.pm1_0,
+      pm2_5: body.pm2_5,
+      pm10: body.pm10,
       locationName: locationData.locationName,
     });
 
     await newData.save();
 
     return new Response(
-      JSON.stringify({ message: "Data saved successfully!", locationName: locationData.locationName }),
+      JSON.stringify({ message: "✅ Data saved successfully!", locationName: locationData.locationName }),
       { status: 200, headers }
     );
 
   } catch (error) {
-    console.error("Error saving data:", error);
+    console.error("❌ Error saving data:", error);
     return new Response(JSON.stringify({ message: "Server error" }), {
       status: 500,
       headers: {
