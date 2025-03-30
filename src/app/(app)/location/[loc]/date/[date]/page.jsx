@@ -20,14 +20,16 @@ const DateDetailPage = () => {
     setloadert(true);
     try {
       // Extract ppm values from aqiData
-      const ppmArray = aqiData.map(data => data.ppm);
-      console.log(aqiData)
+      const co2Array = aqiData.map(data => data.co2);
+      const pm1_0Array = aqiData.map(data => data.pm1_0);
+      const pm2_5Array = aqiData.map(data => data.pm2_5);
+      const pm10Array = aqiData.map(data => data.pm10);
       const res = await fetch("/api/suggest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ ppm: ppmArray }) // Send ppm array
+        body: JSON.stringify({ co2: co2Array,pm1_0:pm1_0Array,pm2_5:pm2_5Array,pm10:pm10Array }) // Send ppm array
       });
 
       const json = await res.json();
@@ -44,14 +46,17 @@ const DateDetailPage = () => {
     setloadert2(true);
     try {
       // Extract ppm values from aqiData
-      const ppmArray = aqiData.map(data => data.ppm);
+      const co2Array = aqiData.map(data => data.co2);
+      const pm1_0Array = aqiData.map(data => data.pm1_0);
+      const pm2_5Array = aqiData.map(data => data.pm2_5);
+      const pm10Array = aqiData.map(data => data.pm10);
 
       const res = await fetch("/api/precautions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ ppm: ppmArray }) // Send ppm array
+        body: JSON.stringify({ co2: co2Array,pm1_0:pm1_0Array,pm2_5:pm2_5Array,pm10:pm10Array }) // Send ppm array
       });
 
       const json = await res.json();
