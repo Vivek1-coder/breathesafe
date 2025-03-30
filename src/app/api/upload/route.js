@@ -51,7 +51,7 @@ export async function POST(req) {
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/location/get-location?latitude=${body.latitude}&longitude=${body.longitude}`
     );
     const locationData = await response.json();
-
+    console.log("location data : ",locationData);
     // Create new data entry
     const newData = new DataModel({
       co2: body.co2,
@@ -61,6 +61,7 @@ export async function POST(req) {
       locationName: locationData.locationName,
     });
 
+    console.log("New Data",newData)
     await newData.save();
 
     return new Response(
