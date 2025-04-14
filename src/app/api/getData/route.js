@@ -39,7 +39,7 @@ export async function GET(req) {
       timestamp: { $gte: startDate, $lte: endDate },
     })
       .sort({ timestamp: -1 })
-      .limit(10);
+      .limit(20);
 
     console.log("Fetched Data:", gasData);
 
