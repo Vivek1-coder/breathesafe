@@ -38,7 +38,7 @@ export async function GET(req) {
       locationName: { $regex: new RegExp("^" + loc + "$", "i") }, // Case-insensitive match
       timestamp: { $gte: startDate, $lte: endDate },
     })
-      .sort({ timestamp: -1 })
+      .sort({ timestamp: 1 })
       .limit(20);
 
     console.log("Fetched Data:", gasData);
