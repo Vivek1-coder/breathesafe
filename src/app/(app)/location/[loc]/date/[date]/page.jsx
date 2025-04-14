@@ -126,7 +126,7 @@ const DateDetailPage = () => {
       <h1 className=" text-lg md:text-3xl text-center p-5">AQI of {loc} on {date}</h1>
         <div className="flex flex-wrap w-full px-6 mt-4 md:justify-between gap-3">
         <div className="flex justify-center w-full md:w-1/3 bg-slate-500 bg-opacity-20 rounded-lg items-center ">
-        {console.log("AqiData",aqiData[0]?.co2)}
+        {console.log("AqiData",aqiData[aqiData.length - 1]?.co2)}
         {aqiData.length > 0  ? (
           <CircularAQI data={aqiData} />
         ) : (
