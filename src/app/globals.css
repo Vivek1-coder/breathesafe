@@ -58,3 +58,23 @@ button {
   color : white
  
 }
+
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-bubble {
+  animation-name: bubble;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
