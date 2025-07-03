@@ -62,8 +62,8 @@ const DateCalendarPage = () => {
 
   return (
     <div className="w-full object-contain overflow-x-clip">
-      <h1 className="w-full text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1>
-      <h2 className="text-2xl font-bold mb-4 text-center">Last 30 Days for {loc}</h2>
+      {/* <h1 className="w-full text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1> */}
+      <h2 className="text-2xl font-bold m-4 text-center">Last 30 Days AQIs for {loc}</h2>
       <div className="flex justify-center flex-wrap gap-5">
         {dates.map(({ formattedDate, dayName, data }) => (
           <div

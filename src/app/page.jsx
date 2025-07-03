@@ -1,10 +1,7 @@
 import Link from "next/link";
 // import Navbar from "../components/Navbar";
-
 export default function LandingPage() {
-  return (
-   
-      
+  return (  
     <div className="relative w-full h-screen bg-black overflow-hidden text-white">
 
       {/* Floating bubbles background */}
@@ -37,6 +34,12 @@ export default function LandingPage() {
           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg transition"
         >
           Check AQI
+        </Link>
+        <Link
+        href="/without-device">
+        <button className="bg-blue-200 text-gray-700 px-6 py-3 rounded m-4 font-bold">
+          Get AQI without Device
+        </button>
         </Link>
       </div>
     </div>
