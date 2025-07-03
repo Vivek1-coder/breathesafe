@@ -4,7 +4,20 @@ import { useState, useEffect } from "react";
 import GasChart from "../../../../../../components/GasChart";
 import CircularAQI from "../../../../../../components/CircularChart.jsx";
 import PollutionChart from "../../../../../../components/GasChart";
-
+import { 
+  Calendar, 
+  MapPin, 
+  Activity, 
+  Shield, 
+  Lightbulb, 
+  Bot, 
+  Loader2,
+  TrendingUp,
+  AlertTriangle,
+  CheckCircle,
+  Sparkles,
+  RefreshCw
+} from 'lucide-react';
 
 const DateDetailPage = () => {
   const { date, loc } = useParams();
@@ -120,87 +133,283 @@ const DateDetailPage = () => {
   
 
   return (
-    <div className="relative w-full h-full">
-      {/* <h1 className="w- text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1> */}
-      
-      <h1 className=" text-lg md:text-3xl text-center p-5">AQI of {loc} on {date}</h1>
-        <div className="flex flex-wrap w-full px-6 mt-4 md:justify-between gap-3">
-        <div className="flex justify-center w-full md:w-1/3 bg-slate-500 bg-opacity-20 rounded-lg items-center ">
-        {console.log("AqiData",aqiData[aqiData.length - 1]?.co2)}
-        {aqiData.length > 0  ? (
-          <CircularAQI data={aqiData} />
-        ) : (
-          <p>Loading data...</p>
-        )}
-     
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black p-6">
+  <div className="max-w-7xl mx-auto">
+    {/* Header Section */}
+    <div className="text-center mb-8">
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl shadow-lg shadow-blue-500/25">
+          <Activity className="w-8 h-8 text-white" />
         </div>
-        
-        
-        <div className="w-full md:w-3/5 md:h-1/2 bg-slate-500 bg-opacity-20 md:p-4 rounded-lg">
-        {console.log("aqiData",aqiData)}
-        {aqiData.length > 0  ? (
-          <PollutionChart gasData={aqiData} />
-        ) : (
-          <p>Loading data...</p>
-        )}
-        </div>
-        
-        
+        <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+          Air Quality Dashboard
+        </h1>
       </div>
+      
+      <div className="flex items-center justify-center gap-4 text-gray-300">
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-blue-400" />
+          <span className="capitalize font-medium">{loc}</span>
+        </div>
+        <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+        <div className="flex items-center gap-2">
+          <Calendar className="w-4 h-4 text-green-400" />
+          <span className="font-medium">{date}</span>
+        </div>
+      </div>
+    </div>
 
-      <div className="w-full flex max-md:flex-wrap justify-between p-5">
-        <div className="flex flex-col w-full md:w-2/5 px-1 pb-5 pt-2 bg-transparent bg-opacity-30  shadow-violet-400 shadow-lg md:m-5 mb-10 rounded-xl">
-          <h1 className="text-xl text-center my-5">Precautions : </h1>
-          <div className="flex justify-center">
-            {loading2 && <button onClick={fetchAQIPrecautions} className="w-1/2 h-11 bg-blue-500 rounded-lg bg-opacity-85  hover:scale-105">{loadert2?"Generating...":"Get precautions from AI"}</button>}
-            {!loading2 && <table className="w-full border-collapse border border-gray-400">
-        <tbody>
-          {tableData2.map((row, index) => (
-            <tr key={index} className={`border border-gray-400 ${colors[index % colors.length]}`}>
-              <td className="p-4 border border-gray-400">
-                <h2 className="text-lg font-bold underline">{row.mainPoint}</h2>
-                {row.subPoints.length > 0 && (
-                  <ul className="list-disc pl-5 mt-2">
-                    {row.subPoints.map((sub, subIndex) => (
-                      <li key={subIndex}>{boldText(sub)}</li>
-                    ))}
-                  </ul>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>}
+    {/* Main Data Visualization Section */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      {/* Circular AQI Display */}
+      <div className="lg:col-span-1">
+        <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-6 h-full">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-blue-900/30 rounded-lg">
+              <TrendingUp className="w-5 h-5 text-blue-400" />
+            </div>
+            <h2 className="text-lg font-semibold text-gray-100">AQI Overview</h2>
+          </div>
+          
+          <div className="flex justify-center items-center h-64">
+            {aqiData.length > 0 ? (
+              <CircularAQI data={aqiData} />
+            ) : (
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-12 h-12 border-4 border-gray-600 border-t-blue-500 rounded-full animate-spin"></div>
+                <p className="text-gray-400">Loading AQI data...</p>
+              </div>
+            )}
           </div>
         </div>
-        
-        <div className="flex flex-col w-full md:w-2/5 px-1 pb-5 pt-2 bg-transparent bg-opacity-50 shadow-lg shadow-green-400 md:m-5 mb-10  rounded-xl">
-          <h1 className="text-xl text-center  my-5">What to do for a better future : </h1>
-          <div className="flex justify-center">
-            {loading && <button onClick={fetchAQIResponse} className="w-1/2 h-11 bg-green-500 rounded-lg bg-opacity-85  hover:scale-105">{loadert?"Generating...":"Generate using AI"}</button>}
-            {!loading && <table className="w-full border-collapse border border-gray-400">
+      </div>
 
-        <tbody>
-          {tableData.map((row, index) => (
-            <tr key={index} className={`border border-gray-400 ${colors[index % colors.length]}`}>
-              <td className="p-4 border border-gray-400">
-                <h2 className="text-lg font-bold underline">{row.mainPoint}</h2>
-                {row.subPoints.length > 0 && (
-                  <ul className="list-disc pl-5 mt-2">
-                    {row.subPoints.map((sub, subIndex) => (
-                      <li key={subIndex}>{boldText(sub)}</li>
-                    ))}
-                  </ul>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>}
+      {/* Pollution Chart */}
+      <div className="lg:col-span-2">
+        <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-6 h-full">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-purple-900/30 rounded-lg">
+              <Activity className="w-5 h-5 text-purple-400" />
+            </div>
+            <h2 className="text-lg font-semibold text-gray-100">Pollution Trends</h2>
+          </div>
+          
+          <div className="h-80">
+            {aqiData.length > 0 ? (
+              <PollutionChart gasData={aqiData} />
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full gap-3">
+                <div className="w-12 h-12 border-4 border-gray-600 border-t-purple-500 rounded-full animate-spin"></div>
+                <p className="text-gray-400">Loading chart data...</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
+
+    {/* AI Recommendations Section */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Precautions Card */}
+      <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden">
+        {/* Card Header */}
+        <div className="bg-gradient-to-r from-red-600/20 to-orange-600/20 border-b border-red-700/30 p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-red-900/30 rounded-xl border border-red-700/30">
+                <Shield className="w-6 h-6 text-red-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-100">Safety Precautions</h2>
+                <p className="text-sm text-gray-400">AI-powered health recommendations</p>
+              </div>
+            </div>
+            {loading2 && (
+              <div className="flex items-center gap-2 text-red-400">
+                <Bot className="w-4 h-4 animate-pulse" />
+                <span className="text-sm">AI Thinking...</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Card Content */}
+        <div className="p-6">
+          {loading2 ? (
+            <div className="text-center py-8">
+              <button 
+                onClick={fetchAQIPrecautions} 
+                disabled={loadert2}
+                className="group relative bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-red-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                {loadert2 ? (
+                  <div className="flex items-center gap-3">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Generating Precautions...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-5 h-5" />
+                    <span>Get AI Precautions</span>
+                  </div>
+                )}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {tableData2.map((row, index) => (
+                <div 
+                  key={index} 
+                  className="bg-red-900/10 border border-red-700/30 rounded-xl p-4 hover:bg-red-900/20 transition-colors duration-200"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="p-1 bg-red-900/30 rounded-lg mt-1">
+                      <AlertTriangle className="w-4 h-4 text-red-400" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-red-300 mb-2">{row.mainPoint}</h3>
+                      {row.subPoints.length > 0 && (
+                        <ul className="space-y-1">
+                          {row.subPoints.map((sub, subIndex) => (
+                            <li key={subIndex} className="flex items-start gap-2 text-gray-300">
+                              <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-sm">{boldText(sub)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Future Actions Card */}
+      <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden">
+        {/* Card Header */}
+        <div className="bg-gradient-to-r from-green-600/20 to-emerald-600/20 border-b border-green-700/30 p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-green-900/30 rounded-xl border border-green-700/30">
+                <Lightbulb className="w-6 h-6 text-green-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-100">Future Actions</h2>
+                <p className="text-sm text-gray-400">AI-powered improvement suggestions</p>
+              </div>
+            </div>
+            {loading && (
+              <div className="flex items-center gap-2 text-green-400">
+                <Bot className="w-4 h-4 animate-pulse" />
+                <span className="text-sm">AI Thinking...</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Card Content */}
+        <div className="p-6">
+          {loading ? (
+            <div className="text-center py-8">
+              <button 
+                onClick={fetchAQIResponse} 
+                disabled={loadert}
+                className="group relative bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-green-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                {loadert ? (
+                  <div className="flex items-center gap-3">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Generating Solutions...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-5 h-5" />
+                    <span>Generate AI Solutions</span>
+                  </div>
+                )}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {tableData.map((row, index) => (
+                <div 
+                  key={index} 
+                  className="bg-green-900/10 border border-green-700/30 rounded-xl p-4 hover:bg-green-900/20 transition-colors duration-200"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="p-1 bg-green-900/30 rounded-lg mt-1">
+                      <CheckCircle className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-green-300 mb-2">{row.mainPoint}</h3>
+                      {row.subPoints.length > 0 && (
+                        <ul className="space-y-1">
+                          {row.subPoints.map((sub, subIndex) => (
+                            <li key={subIndex} className="flex items-start gap-2 text-gray-300">
+                              <div className="w-1.5 h-1.5 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-sm">{boldText(sub)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Quick Actions */}
+    <div className="mt-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <RefreshCw className="w-5 h-5 text-blue-400" />
+        <h3 className="text-lg font-semibold text-gray-100">Quick Actions</h3>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <button className="flex items-center gap-3 p-4 bg-blue-900/20 rounded-xl border border-blue-700/30 hover:bg-blue-900/30 transition-colors">
+          <RefreshCw className="w-5 h-5 text-blue-400" />
+          <span className="text-gray-300">Refresh Data</span>
+        </button>
+        
+        <button className="flex items-center gap-3 p-4 bg-purple-900/20 rounded-xl border border-purple-700/30 hover:bg-purple-900/30 transition-colors">
+          <TrendingUp className="w-5 h-5 text-purple-400" />
+          <span className="text-gray-300">View Trends</span>
+        </button>
+        
+        <button className="flex items-center gap-3 p-4 bg-green-900/20 rounded-xl border border-green-700/30 hover:bg-green-900/30 transition-colors">
+          <Bot className="w-5 h-5 text-green-400" />
+          <span className="text-gray-300">AI Analysis</span>
+        </button>
+      </div>
+    </div>
+
+    {/* Floating particles background effect */}
+    <div className="fixed inset-0 pointer-events-none z-0">
+      {[...Array(10)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full opacity-5 animate-float"
+          style={{
+            background: i % 3 === 0 ? '#3B82F6' : i % 3 === 1 ? '#10B981' : '#F59E0B',
+            width: `${Math.random() * 25 + 10}px`,
+            height: `${Math.random() * 25 + 10}px`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDuration: `${Math.random() * 20 + 15}s`,
+            animationDelay: `${Math.random() * 5}s`,
+          }}
+        />
+      ))}
+    </div>
+  </div>
+</div>
   );
 };
 

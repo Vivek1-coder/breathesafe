@@ -7,7 +7,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-gray-800 px-6 py-4 shadow-md">
+    <nav className="w-full sticky top-0 z-50 bg-gray-800 px-6 py-4 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">  
         <Link href="/" className="text-2xl font-bold text-green-600">
           Breathe Sa🌿e
