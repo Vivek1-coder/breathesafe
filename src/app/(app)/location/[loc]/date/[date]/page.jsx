@@ -121,7 +121,7 @@ const DateDetailPage = () => {
 
   return (
     <div className="relative w-full h-full">
-      <h1 className="w- text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1>
+      {/* <h1 className="w- text-center m-5 font-bold md:font-extrabold text-2xl md:text-5xl">Breathe Sa🌿e</h1> */}
       
       <h1 className=" text-lg md:text-3xl text-center p-5">AQI of {loc} on {date}</h1>
         <div className="flex flex-wrap w-full px-6 mt-4 md:justify-between gap-3">
