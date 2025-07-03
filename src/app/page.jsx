@@ -3,7 +3,7 @@ import { LocateFixed, CloudSun, ChartNetwork } from "lucide-react";
 // import Navbar from "../components/Navbar";
 export default function LandingPage() {
   return (  
-   <div className="relative w-full h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black overflow-hidden text-white">
+   <div className="relative w-full min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black overflow-hidden text-white">
   {/* Enhanced floating particles background */}
   <div className="absolute inset-0 z-0">
     {[...Array(30)].map((_, i) => (
