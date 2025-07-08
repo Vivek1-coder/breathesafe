@@ -20,12 +20,12 @@ const AQIPage = () => {
   const [loading, setLoading] = useState(false);
 
   // Fetch AQI from backend
-  const fetchAQI = async (cityName) => {
+  const fetchAQI = async (city) => {
     setLoading(true);
     setError(null);
     setAqiData(null);
     try {
-      const res = await fetch(`/api/airquality?city=${cityName}`);
+      const res = await fetch(`/api/airquality?city=${city}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong");
       setAqiData(data);
@@ -39,7 +39,7 @@ const AQIPage = () => {
   // On first mount
   useEffect(() => {
     fetchAQI(city);
-  }, []);
+  }, [city]);
 
   // Handle form submit
   const handleSubmit = (e) => {
