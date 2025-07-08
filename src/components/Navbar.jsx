@@ -23,7 +23,7 @@ export default function Navbar() {
           </Link>
 
           {/* Auth Buttons */}
-          <Link
+          {/* <Link
             href="/login"
             className="bg-white text-blue-600 border border-blue-600 px-4 py-1.5 rounded-md hover:bg-blue-50 transition"
           >
@@ -34,7 +34,7 @@ export default function Navbar() {
             className="bg-blue-600 text-white px-4 py-1.5 rounded-md hover:bg-blue-700 transition"
           >
             Register
-          </Link>
+          </Link> */}
         </div>
 
         {/* Mobile Hamburger */}
