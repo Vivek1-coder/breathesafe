@@ -9,12 +9,12 @@ export default function Navbar() {
   return (
     <nav className="w-full sticky top-0 z-50 bg-gray-800 px-6 py-4 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">  
-        <Link href="/" className="text-2xl font-bold text-green-600">
+        <Link href="/" className="md:w-2/3 text-2xl font-bold text-green-600">
           Breathe Sa🌿e
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6 font-semibold">
+        <div className="md:w-1/3 hidden md:flex  md:text-lg items-center md:justify-end md:gap-20 space-x-6 md:font-bold font-semibold">
           <Link href="/" className="text-white hover:text-blue-400 transition">
             Home
           </Link>

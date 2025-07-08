@@ -32,9 +32,9 @@ export default function LandingPage() {
   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-5" />
 
   {/* Main content */}
-  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6 max-w-4xl mx-auto">
+  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6 max-w-4xl mx-auto ">
     {/* Enhanced header with gradient text */}
-    <div className="mb-8 space-y-4">
+    <div className="mb-8 space-y-4 md:pt-8">
       <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-emerald-400 via-blue-400 to-teal-400 bg-clip-text text-transparent leading-tight">
         Welcome to Breathe Sa🌿e
       </h1>

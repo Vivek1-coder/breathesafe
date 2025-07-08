@@ -12,7 +12,8 @@ import {
   AlertTriangle,
   Info,
   ChevronRight,
-  Activity
+  Activity,
+  Loader2
 } from 'lucide-react';
 const DateCalendarPage = () => {
   const [dates, setDates] = useState([]);
@@ -68,7 +69,7 @@ const DateCalendarPage = () => {
     router.push(`/location/${loc}/date/${date}`);
   };
 
-  if (loading) return <p className="text-center text-lg">Loading data...</p>;
+  if (loading) return <div className="flex items-center justify-center text-center text-lg"><Loader2 className="animate-spin"/></div>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
